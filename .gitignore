@@ -1,1 +1,2 @@
-.envetl/data/sales/csv
+.env
+etl/data/sales.csv
