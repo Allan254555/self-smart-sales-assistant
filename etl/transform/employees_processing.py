@@ -31,6 +31,9 @@ def data_exploration(data: pd.DataFrame):
     return data
 
 def data_transformation(data: pd.DataFrame):
+
+    data["HireDate"]  = pd.to_datetime(data["HireDate"],  errors="coerce").dt.date
+
     #Join first name and last name to full name
     data["name"]=data["FirstName"] + " " + data["LastName"].str.strip()
 
@@ -44,6 +47,7 @@ def data_transformation(data: pd.DataFrame):
     return data
 
 def clean_data(df: pd.DataFrame):
+    data_exploration(df)
     df = data_transformation(df)
     df.columns = [col.lower() for col in df.columns]    
     print(df.columns.tolist())
