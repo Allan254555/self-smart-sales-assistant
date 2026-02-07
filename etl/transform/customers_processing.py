@@ -22,7 +22,8 @@ def missing_values(data: pd.DataFrame):
     return data
 def data_transformation(data: pd.DataFrame):
     #Join first name and last name to full name
-    data["name"]=data["FirstName"] + " " + data["LastName"].str.strip()
+    
+    data["customername"]=data["FirstName"] + " " + data["LastName"].str.strip()
 
     #Drop middle initial
     if "MiddleInitial" in data.columns:
@@ -30,7 +31,7 @@ def data_transformation(data: pd.DataFrame):
     
     #Drop name columns
     data.drop(columns=["FirstName", "LastName", "Address"], inplace=True)
-    print(data.columns)
+    print(data.columns.tolist())
     return data
 
 def clean_data(df: pd.DataFrame):
@@ -38,5 +39,5 @@ def clean_data(df: pd.DataFrame):
     df=data_transformation(df)
     df = missing_values(df) 
     df.columns = [col.lower() for col in df.columns]    
-    print(df.head())
+    print(df.columns.tolist())
     return df
