@@ -24,8 +24,14 @@ def data_exploration(data: pd.DataFrame):
         print("No duplicates found!!!")
     
     return data
+def data_transformation(df: pd.DataFrame):
+    #Drop column country code because it is unncessary for analysis
+    if 'Zipcode' in df.columns:
+        df.drop(columns=["Zipcode"], inplace=True)
+    return df
 def clean_data(df: pd.DataFrame):
-    df = data_exploration(df)
+    df_0 = data_exploration(df)
+    df = data_transformation(df_0)
     print("\n\n\t😁😁😁😁End of cities data pre processing😁😁👍😊\n\n")
     df.columns = [col.lower() for col in df.columns] 
     print(df.head())
