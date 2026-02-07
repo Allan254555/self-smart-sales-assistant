@@ -1,5 +1,5 @@
-#from etl.load import database_loader
 from etl.extract import load_data
+from etl.load import clickhouse_loader
 from etl.transform import (
     categories_processing,
     cities_processing,
@@ -12,12 +12,14 @@ from etl.transform import (
 
     
 
-#from etl.load import database_loader
+#from etl.load import clickhouse_loader
 import pandas as pd
 
 
 def main():
     print("=== Starting ETL Pipeline ===")
+
+    client = clickhouse_loader.get_clickhouse_client()
 
     print("Extracting data...")
     categories = load_data.load_categories()
@@ -39,19 +41,22 @@ def main():
     employees_df = employees_processing.clean_data(employees)
     
     products_df = products_processing.clean_data(products)
-    sales_df = sales_data_processing.clean_data(sales,products)
+    sales_df = sales_data_processing.clean_data(sales,products_df)
 
 
     print("Loading data into the database...")
-    '''database_loader.load_to_db("categories", categories_df)
+    clickhouse_loader.load_dataframe(client,"countries", countries_df)
+    clickhouse_loader.load_dataframe(client,"cities", cities_df)
+
+    clickhouse_loader.load_dataframe(client,"categories", categories_df)
+    clickhouse_loader.load_dataframe(client,"products", products_df)    
     
-    database_loader.load_to_db("countries", countries_df)
-    database_loader.load_to_db("cities", cities_df)
+    clickhouse_loader.load_dataframe(client,"customers", customers_df)
+    clickhouse_loader.load_dataframe(client,"employees", employees_df)
+       
+    clickhouse_loader.load_dataframe(client,"sales", sales_df)
     
-    database_loader.load_to_db("customers", customers_df)
-    database_loader.load_to_db("employees", employees_df)
-    
-    database_loader.load_to_db("products", products_df)    database_loader.load_to_db("sales", sales_df)'''
+   
     
     print("ETL process completed successfully.")
 
