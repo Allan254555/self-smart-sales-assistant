@@ -1,5 +1,9 @@
 import pandas as pd
 
+'''from etl.extract.load_data import load_employees
+
+data = load_employees()'''
+
 def data_exploration(data: pd.DataFrame):
     
     print("\n\033[4m EMPLOYEE PREPROCESSING BLOCK \033[0m")
@@ -23,10 +27,24 @@ def data_exploration(data: pd.DataFrame):
         print("Here are duplicates: \n",duplicates)
     else:
         print("No duplicates found!!!")
+
+    return data
+
+def data_transformation(data: pd.DataFrame):
+    #Join first name and last name to full name
+    data["name"]=data["FirstName"] + " " + data["LastName"].str.strip()
+
+    #Drop middle initial
+    if "MiddleInitial" in data.columns:
+        data.drop(columns=["MiddleInitial"], inplace=True)
+    
+    #Drop name columns
+    data.drop(columns=["FirstName", "LastName", "BirthDate"], inplace=True)
+    print(data.columns)
     return data
 
 def clean_data(df: pd.DataFrame):
-    df=data_exploration(df)
+    df = data_transformation(df)
     df.columns = [col.lower() for col in df.columns]    
-    print(df.head())
+    print(df.columns.tolist())
     return df

@@ -1,17 +1,17 @@
-import os
-import pandas as pd
-import numpy as np
-from sqlalchemy import create_engine
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-def get_engine():
-    DB_USER = os.getenv("DB_USER")
-    DB_PASSWORD = os.getenv("DB_PASSWORD")
-    DB_HOST = os.getenv("DB_HOST")
-    DB_PORT = os.getenv("DB_PORT", 5432)
-    DB_NAME = os.getenv("DB_NAME")
-    
-    print(DB_HOST,'\n',DB_NAME,'\n',DB_PASSWORD,'\n',DB_USER,'\n',DB_PORT)
-get_engine()
+client = OpenAI()
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant"},
+        {"role": "user", "content": "Explain sales trends in simple terms"}
+    ],
+    max_tokens=100
+)
+
+print(response.choices[0].message.content)

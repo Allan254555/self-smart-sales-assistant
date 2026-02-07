@@ -1,5 +1,6 @@
 import pandas as pd
-
+'''from etl.extract.load_data import load_customers
+data = load_customers()'''
 
 def data_exploration(data: pd.DataFrame):
     print("\n\033[4m CUSTOMER PREPROCESSING BLOCK \033[0m")
@@ -19,8 +20,22 @@ def missing_values(data: pd.DataFrame):
     else:
         print("No missing values found!!!")
     return data
+def data_transformation(data: pd.DataFrame):
+    #Join first name and last name to full name
+    data["name"]=data["FirstName"] + " " + data["LastName"].str.strip()
+
+    #Drop middle initial
+    if "MiddleInitial" in data.columns:
+        data.drop(columns=["MiddleInitial"], inplace=True)
+    
+    #Drop name columns
+    data.drop(columns=["FirstName", "LastName", "Address"], inplace=True)
+    print(data.columns)
+    return data
+
 def clean_data(df: pd.DataFrame):
-    data_exploration(df)
+    #data_exloration(df)
+    df=data_transformation(df)
     df = missing_values(df) 
     df.columns = [col.lower() for col in df.columns]    
     print(df.head())
