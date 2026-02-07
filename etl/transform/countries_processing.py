@@ -12,8 +12,8 @@ def data_exploration(data: pd.DataFrame):
     
 def data_transformation(df: pd.DataFrame):
     #Drop column country code because it is unncessary for analysis
-    if 'Countrycode' in df.columns:
-        df.drop(columns="CountryCode", inplace=True)
+    if 'CountryCode' in df.columns:
+        df.drop(columns=["CountryCode"], inplace=True)
     return df
 def clean_data(df: pd.DataFrame):
     data_exploration(df)
