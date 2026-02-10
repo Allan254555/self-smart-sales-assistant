@@ -62,3 +62,79 @@ CREATE TABLE sales (
     FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
     FOREIGN KEY (SalesPersonID) REFERENCES employees(EmployeeID)
 );
+
+CREATE TABLE IF NOT EXISTS sales
+(
+    `salesid` UInt64,
+    `salespersonid` UInt32,
+    `customerid` UInt32,
+    `quantity` UInt32,
+    `discount` Float32,
+    `totalprice` Float64,
+    `salesdate` DateTime64(3),
+    `transactionnumber` String,
+	`productid` UInt32
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(salesdate)
+ORDER BY salesid
+SETTINGS index_granularity = 8192
+
+CREATE TABLE products
+(
+    productid       UInt32,
+    productname     String,
+    price           Float64,
+    categoryid      UInt32,
+    class           String,
+    isallergic      String,
+    vitalitydays    UInt16
+)
+ENGINE = MergeTree
+ORDER BY productid;
+
+CREATE TABLE categories
+(
+	categoryid      UInt32,
+	categoryname    String
+)
+ENGINE = MergeTree
+ORDER BY categoryid;
+
+CREATE TABLE customers
+(
+	customerid      UInt32,
+	customername      String,
+	cityid          UInt32
+)
+ENGINE = MergeTree
+ORDER BY customerid;
+
+CREATE TABLE employees
+(
+	employeeid      UInt32,
+	name    String,
+	gender 		String,
+	cityid          UInt32,
+	hiredate 	  DateTime64(3)
+)
+ENGINE = MergeTree
+ORDER BY employeeid;
+
+CREATE TABLE cities
+(
+	cityid          UInt32,
+	cityname        String,
+	countryid       UInt32
+)
+ENGINE = MergeTree
+ORDER BY cityid;
+
+CREATE TABLE countries
+(
+	countryid       UInt32,
+	countryname     String
+)
+ENGINE = MergeTree
+ORDER BY countryid;
+
