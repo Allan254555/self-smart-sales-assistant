@@ -1,4 +1,4 @@
-#!/media/allan/D/Analytics/venv/bin/python3
+#!/media/allan/D/sales_data_analysis/Analytics/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -5,4 +5,9 @@ uvicorn
 psycopg2-binary
 SQLAlchemy
 openai
+google-generativeai
+python-jose[cryptography]
 python-dotenv
+passlib[bcrypt]
+clickhouse-connect
+redis
