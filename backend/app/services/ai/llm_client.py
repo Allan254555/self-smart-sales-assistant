@@ -8,7 +8,7 @@ api_key = os.getenv("GEMINI_API_KEY")
 gai.configure(api_key=api_key)
 
 model = gai.GenerativeModel(
-    model_name = "models/gemini-2.0-flash",
+    model_name = "models/gemini-2.0-flash-exp",
     generation_config={
         "temperature": 0.2,
         "response_mime_type": "application/json"

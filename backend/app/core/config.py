@@ -16,6 +16,9 @@ class Settings:
     redis_port: int = int(os.getenv("REDIS_PORT", 6379))
     redis_db: int = int(os.getenv("REDIS_DB", 0))
 
+    REDIS_URL: str = os.getenv("REDIS_URL", f"redis://{redis_host}:{redis_port}/{redis_db}")    
+    RECO__TOPK: int = int(os.getenv("RECO__TOPK", 20))
+    RECO_LOOKBACK_DAYS: int = int(os.getenv("RECO_LOOKBACK_DAYS", 130))
 settings = Settings()
 
 

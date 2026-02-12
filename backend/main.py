@@ -3,7 +3,7 @@ from backend.app.api.routes.analytics import router as analytics_router
 
 from backend.app.database.connection import Base, engine
 from backend.app.auth.routes import router as auth_router
-
+from backend.app.api.routes.recommendations import router as reco_router
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.chat.routes import router as chat_router
 #from backend.app.chat.websocket import router as ws_router
@@ -20,6 +20,7 @@ app.add_middleware(
 app.include_router(analytics_router)
 app.include_router(auth_router)
 app.include_router(chat_router)
+app.include_router(reco_router)
 
 @app.get("/")
 def health():

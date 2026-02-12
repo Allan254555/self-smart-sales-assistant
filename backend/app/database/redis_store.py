@@ -1,6 +1,6 @@
 from __future__ import annotations
 import redis
-from app.core.config import settings
+from backend.app.core.config import settings
 
 def get_redis_client() -> redis.Redis:
     # decode_responses=True -> returns str not bytes

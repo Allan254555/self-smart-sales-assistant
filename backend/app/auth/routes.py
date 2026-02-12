@@ -7,7 +7,7 @@ from backend.app.utils.hashing import hash_password, verify_password
 from backend.app.auth.jwt_handler import create_access_token
 from backend.app.auth.schemas import UserCreate
 
-router = APIRouter(prefix="/chat", tags=["chat"])
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 
     

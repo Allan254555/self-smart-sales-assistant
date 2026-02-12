@@ -143,4 +143,4 @@ def build_all() -> None:
 
 if __name__ == "__main__":
     build_all()
-    print("✅ Recommendation tables built successfully.")
+    print(" Recommendation tables built successfully.")
